@@ -1,0 +1,6 @@
+*/*.out
+.ccls-cache
+
+array/a.out
+array/a.out
+.gitignore
