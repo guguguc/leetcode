@@ -1,5 +1,7 @@
 #include <iostream>
+#include <set>
 #include <vector>
+#include <algorithm>
 #include <cassert>
 #include <cstdint>
 
@@ -21,13 +23,9 @@ int secondMax(vector<int>& nums)
     ll a1, a2;
     a1 = a2 = INT64_MIN;
     for (auto &n: nums) {
-        if (n > a1) {
-            a2 = a1;
-            a1 = n;
-        }
-        if (n < a1) {
-            a2 = max((ll)n, a2);
-        }
+        if (n <= a2 || n == a1) continue;
+        a2 = n;
+        if (a2 > a1) swap(a2, a1);
     }
     if (a2 == INT64_MIN) a2 = a1;
     return (int)a2;
@@ -49,6 +47,9 @@ int thirdMax_t1(vector<int>& nums)
     return a3;
 }
 
+/**
+ * So ugly!
+ */
 int thirdMax_t2(vector<int>& nums)
 {
     // a[0] = firstMax
@@ -76,6 +77,23 @@ int thirdMax_t2(vector<int>& nums)
     if (a[2] == INT64_MIN)
         a[2] = max(a[0], a[1]);
     return (int)a[2];
+}
+
+/**
+ * Maintain an orderd set that has at most three elements.
+ */
+int thirdMax_t3(vector<int>& nums)
+{
+    int length = nums.size();
+    // 1. All same nums.
+    // 2. Two distinct nums.
+    // 1. Greater than three distinct nums.
+    set<int> s;
+    for (auto& n: nums) {
+        s.insert(n);
+        if (s.size() > 3) s.erase(s.begin());
+    }
+    return s.size() == 3 ? *s.begin() : *s.end();
 }
 
 int thirdMax(vector<int>& nums)
@@ -106,6 +124,7 @@ int main()
     vector<int> v4(5, 1);
     vector<int> v5{20, 10, 13, 5, 99, 7, 108};
     vector<int> v6{1, 2, INT32_MIN};
+    vector<int> v7{1, 2, 1, 2, 1, 2};
 
     assert(secondMax(v1) == 4);
     assert(secondMax(v2) == 4);
@@ -113,12 +132,14 @@ int main()
     assert(secondMax(v4) == 1);
     assert(secondMax(v5) == 99);
 
-    assert(thirdMax(v1) == 3);
-    assert(thirdMax(v2) == 3);
-    assert(thirdMax(v3) == 2);
-    assert(thirdMax(v4) == 1);
-    assert(thirdMax(v5) == 20);
-    assert(thirdMax(v6) == INT32_MIN);
+    auto func = thirdMax_t3;
+    assert(func(v1) == 3);
+    assert(func(v2) == 3);
+    assert(func(v3) == 2);
+    assert(func(v4) == 1);
+    assert(func(v5) == 20);
+    assert(func(v6) == INT32_MIN);
+    assert(func(v7) == 2);
 
     return 0;
 }
