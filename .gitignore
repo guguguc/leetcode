@@ -1,2 +1,4 @@
-*/*.out
-.ccls-cache
+*.out
+.ccls-cache/
+.vim/
+.vscode/
