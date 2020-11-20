@@ -26,18 +26,14 @@ bool has_cycle(ListNode *head)
 {
     ListNode *p1, *p2;
     p1 = p2 = head;
-    int cnt = 0;
-    while (p2 != nullptr) {
-        p2 = p2->next;
-        // If there is a ring, p1 will catch up with p2.
+    while (p2 && p2->next) {
+        // P1 moves one step when p2 moves every two steps,
+        // thus p2 moves twice as far as p1.
+        p1 = p1->next;
+        p2 = p2->next->next;
+        // If there is a ring, p2 will catch up with p1.
         if (p1 == p2)
             return true;
-        // P2 moves one step when p1 moves every two steps,
-        // thus p2 moves twice as far as p1.
-        if (++cnt == 2) {
-            p1 = p1->next;
-            cnt = 0;
-        }
     }
     return false;
 }
