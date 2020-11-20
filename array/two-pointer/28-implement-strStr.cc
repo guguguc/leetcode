@@ -15,19 +15,16 @@ using namespace std;
 int strStr(string haystack, string needle)
 {
     if (needle.empty()) return 0;
-    int index, l1, l2, i, j;
+    int l1, l2, i, j;
     l1 = haystack.size();
     l2 = needle.size();
-    index = -1;
     for(i = 0; i + l2 <= l1; ++i) {
         for (j = i; j < i + l2 && haystack[j] == needle[j-i]; ++j)
             ;
-        if (j == i + l2) {
-            index = j - l2;
-            break;
-        }
+        if (j == i + l2)
+            return j - l2;
     }
-    return index;
+    return -1;
 }
 
 int main()
