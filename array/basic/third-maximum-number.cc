@@ -116,7 +116,7 @@ int thirdMax(vector<int>& nums)
  * in this array. If it does not exist, return the maximum number.
  * The time complexity must be in O(n).
  */
-int main()
+int main(int argc, char **argv)
 {
     vector<int> v1{1, 2, 3, 4, 5};
     vector<int> v2{5, 4, 3, 2, 1};
@@ -125,7 +125,6 @@ int main()
     vector<int> v5{20, 10, 13, 5, 99, 7, 108};
     vector<int> v6{1, 2, INT32_MIN};
     vector<int> v7{1, 2, 1, 2, 1, 2};
-
     assert(secondMax(v1) == 4);
     assert(secondMax(v2) == 4);
     assert(secondMax(v3) == 3);
@@ -139,7 +138,5 @@ int main()
     assert(func(v4) == 1);
     assert(func(v5) == 20);
     assert(func(v6) == INT32_MIN);
-    assert(func(v7) == 2);
-
     return 0;
 }
