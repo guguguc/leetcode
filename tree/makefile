@@ -1,4 +1,4 @@
-CC=g++
+CXX=g++
 CXXFLAGS=-Wall -g
 SRC = tree.cc test.cc
 ODIR = build
@@ -10,10 +10,10 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 TARGET=main.out
 
 $(ODIR)/%.o: %.cc $(DEPS)
-	$(CC) -c -o $@ $< $(CXXFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 $(TARGET): $(OBJ)
-	$(CC) -o $@ $^ $(CXXFLAGS)
+	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 clean:
 	rm -f $(ODIR)/*.o $(TARGET)
