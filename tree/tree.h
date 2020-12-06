@@ -5,6 +5,7 @@ class TreeNode {
 
 public:
     TreeNode(Type val) : val(val), left(nullptr), right(nullptr) {}
+    ~TreeNode();
 
 public:
     Type val;
@@ -15,6 +16,7 @@ public:
 class BinaryTree {
 public:
     BinaryTree() : height(0), root(nullptr) {}
+    ~BinaryTree();
     void createByPreInSeq(const std::string &pre, const std::string &in);
     void createByInPostSeq(const std::string &in, const std::string &post);
 

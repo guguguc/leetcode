@@ -1,4 +1,4 @@
-#include "tree.hpp"
+#include "tree.h"
 #include <iostream>
 
 using namespace std;
@@ -16,6 +16,7 @@ int main()
     travalByInOrder(tree.root);
     cout << endl;
     travalByPostOrder(tree.root);
+    cout << endl;
 
     return 0;
 }

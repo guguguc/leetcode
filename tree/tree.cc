@@ -1,4 +1,4 @@
-#include "tree.hpp"
+#include "tree.h"
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -39,6 +39,21 @@ TreeNode *createRootByPreInSeq(const std::string &pre, const std::string &in)
     p->right = createRootByPreInSeq(pre_right, in_right);
 
     return p;
+}
+
+TreeNode::~TreeNode()
+{
+    delete this->left;
+    delete this->right;
+    // std::cout << "[*] TreeNode " << this << " has been destruct" <<
+    // std::endl;
+}
+
+BinaryTree::~BinaryTree()
+{
+    delete this->root;
+    // std::cout << "[*] BinaryTree " << this << " has been destruct" <<
+    // std::endl;
 }
 
 void BinaryTree::createByPreInSeq(const std::string &pre, const std::string &in)
