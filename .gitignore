@@ -1,4 +1,6 @@
+compile_flags.txt
 *.out
+
 .ccls-cache/
 .vim/
 .vscode/

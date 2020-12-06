@@ -1,14 +1,14 @@
-#include <iostream>
-#include <vector>
 #include <array>
 #include <cassert>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x): val(x), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
 };
 
 /**
@@ -42,15 +42,15 @@ bool has_cycle(ListNode *head)
  * 1 -> 2 -> 3 -> 4 -> 5
  * [(5, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6)]
  */
-ListNode* create_list(int list[][2])
+ListNode *create_list(int list[][2])
 {
     ListNode *head, *p;
     head = p = new ListNode(0);
     for (int i = list[0][1]; i != 0; i = list[i][1]) {
         p->next = new ListNode(list[i][0]);
-        p = p->next;
+        p       = p->next;
     }
-    p = head;
+    p    = head;
     head = head->next;
     delete p;
     return head;
@@ -58,7 +58,7 @@ ListNode* create_list(int list[][2])
 
 int main()
 {
-    int a[6][2] = {{5, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 0}};
+    int a[6][2]    = {{5, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}, {5, 0}};
     ListNode *head = create_list(a);
     assert(has_cycle(head) == false);
     head->next->next = head;

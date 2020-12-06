@@ -5,7 +5,8 @@ using namespace std;
 
 class Solution {
 public:
-    int removeDuplicates(vector<int>& nums) {
+    int removeDuplicates(vector<int> &nums)
+    {
         int i = 0, j = 1, length = nums.size();
         while (j < length) {
             if (nums[j] != nums[i])
@@ -24,6 +25,7 @@ int main()
     // vector<int> v;
     int i = Solution().removeDuplicates(v);
     cout << i << endl;
-    for (auto &n: v) cout << n << " ";
+    for (auto &n : v)
+        cout << n << " ";
     return 0;
 }

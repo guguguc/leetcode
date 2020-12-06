@@ -6,20 +6,21 @@
  * Note: If needle is an empty string, return 0.
  */
 
+#include <cassert>
 #include <iostream>
 #include <string>
-#include <cassert>
 
 using namespace std;
 
 int strStr(string haystack, string needle)
 {
-    if (needle.empty()) return 0;
+    if (needle.empty())
+        return 0;
     int l1, l2, i, j;
     l1 = haystack.size();
     l2 = needle.size();
-    for(i = 0; i + l2 <= l1; ++i) {
-        for (j = i; j < i + l2 && haystack[j] == needle[j-i]; ++j)
+    for (i = 0; i + l2 <= l1; ++i) {
+        for (j = i; j < i + l2 && haystack[j] == needle[j - i]; ++j)
             ;
         if (j == i + l2)
             return j - l2;

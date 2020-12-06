@@ -1,20 +1,23 @@
 #include <iostream>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 class Solution {
 public:
-    bool checkIfExist(vector<int>& arr) {
+    bool checkIfExist(vector<int> &arr)
+    {
         unordered_map<int, bool> hash;
         for (int i = 0; i < arr.size(); ++i) {
             int num = arr[i];
             if (hash.count(num)) {
                 return true;
-            } else {
-                hash[2*num] = true;
-                if (!(num%2)) hash[num/2] = true;
+            }
+            else {
+                hash[2 * num] = true;
+                if (!(num % 2))
+                    hash[num / 2] = true;
             }
         }
         return false;

@@ -1,12 +1,13 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 class Solution {
 public:
-    int heightChecker_vanilla(vector<int>& heights) {
+    int heightChecker_vanilla(vector<int> &heights)
+    {
         vector<int> aux(heights);
         sort(aux.begin(), aux.end());
         int ans = 0;

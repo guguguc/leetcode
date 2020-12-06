@@ -1,6 +1,6 @@
+#include <cassert>
 #include <iostream>
 #include <vector>
-#include <cassert>
 
 using namespace std;
 
@@ -12,26 +12,31 @@ using namespace std;
  * You may assume the returned list does not count as extra space.
  */
 
-vector<int> findDisappearedNumbers_1(vector<int>& nums)
+vector<int> findDisappearedNumbers_1(vector<int> &nums)
 {
     vector<int> ans;
     int length = nums.size() + 1;
     vector<bool> aux(length);
-    for (int& n: nums) aux[n] = true;
+    for (int &n : nums)
+        aux[n] = true;
     for (int i = 1; i < length; ++i)
-        if (!aux[i]) ans.push_back(i);
+        if (!aux[i])
+            ans.push_back(i);
     return ans;
 }
 
-vector<int> findDisappearedNumbers(vector<int>& nums)
+vector<int> findDisappearedNumbers(vector<int> &nums)
 {
     int length = nums.size() + 1;
     vector<int> ans(length);
     int i, j;
-    for (i = 1; i < length; ++i) ans[i] = i;
-    for (int& n: nums) ans[n] -= n;
+    for (i = 1; i < length; ++i)
+        ans[i] = i;
+    for (int &n : nums)
+        ans[n] -= n;
     for (i = 1, j = 0; i < length; ++i)
-        if (ans[i] == i) ans[j++] = i;
+        if (ans[i] == i)
+            ans[j++] = i;
     ans.resize(j);
     return ans;
 }

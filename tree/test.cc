@@ -1,5 +1,5 @@
-#include <iostream>
 #include "tree.hpp"
+#include <iostream>
 
 using namespace std;
 

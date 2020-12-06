@@ -1,7 +1,7 @@
-#include <iostream>
+#include "linkedlist.hpp"
 #include <algorithm>
 #include <cassert>
-#include "linkedlist.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -19,7 +19,7 @@ int main()
 {
     LinkedList *list, *p;
     list = new LinkedList();
-    p = list;
+    p    = list;
 
     cout << "test add at tail\n";
     for (int i = 1; i < 10 + 1; ++i)
@@ -31,7 +31,7 @@ int main()
     displayList(list);
 
     cout << "test get\n";
-    
+
     assert(p->get(2) == 2);
     assert(p->get(100) == -1);
 
