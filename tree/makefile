@@ -1,8 +1,8 @@
 CXX=g++
 CXXFLAGS=-Wall -g
-SRC = tree.cc test.cc
+SRC = test.cc
 ODIR = build
-DEPS = tree.h
+DEPS = tree.h util.h
 
 _OBJ = tree.o test.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
