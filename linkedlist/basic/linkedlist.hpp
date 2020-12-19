@@ -12,18 +12,11 @@ public:
     LinkedList *findPrev(int index);
     void addAtHead(int val);
     void addAtTail(int val);
-    void addAtIndex(int index);
+    void addAtIndex(int index, int val);
     void deleteAtIndex(int index);
 
 public:
     int val;
     LinkedList *prev;
     LinkedList *next;
-};
-
-class ListView {
-    ListView(LinkedList *list, std::function<int> sort_func(int, int));
-
-private:
-    std::vector<LinkedList *> views;
 };

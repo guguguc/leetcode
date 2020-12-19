@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <map>
 
 using namespace std;
 using tree = BinaryTree<int>;
@@ -13,7 +14,7 @@ int genRandom(int min, int max) { return min + rand() % (max - min + 1); }
 
 void testInsert()
 {
-    const int N = 10000000;
+    const int N = 1000000;
     tree t      = tree();
     vector<int> vec(N);
     generate(vec.begin(), vec.end(), [&]() { return genRandom(1, N); });
@@ -21,7 +22,28 @@ void testInsert()
     for (const auto &v : vec)
         t.insert(v);
     assert(t.size() == N);
-    travalByInOrder(t.getRoot(), std::cerr);
+    travalByInOrder(t.getRoot(), std::cout);
+
+    cout << "\n";
+    cout << "[*] size is " << t.size() << "\n";
+    cout << "[*] height is " << t.height() << "\n";
+}
+
+void testCount()
+{
+    const int N = 1000000;
+    vector<int> vec(N);
+    generate(vec.begin(), vec.end(), [&]() { return genRandom(1, N); });
+
+    tree t = tree(vec);
+    map<int, size_t> counter;
+
+    for (auto &n : vec)
+        counter[n] += 1;
+    for (auto &[k, v] : counter)
+        cout << k << " occurs " << v <<  " times\n";
+
+    cout << "counter size is " << counter.size() << "\n";
 }
 
 void testBuild()
@@ -41,13 +63,14 @@ void testIsAVL()
     tree t3(vector<int>({5, -4, 8, 9, 6, -2}));
     assert(isAVL(t3) == true);
 
-    cout << "[*] test success in 3 cases\n";
+    cout << "[*] test isAVL success in 3 cases\n";
 }
 
 int main()
 {
     srand(time(nullptr));
     testInsert();
-    testIsAVL();
+    testCount();
+    // testIsAVL();
     return 0;
 }

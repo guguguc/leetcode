@@ -15,7 +15,7 @@ void LinkedList::addAtHead(int val)
     LinkedList *p = new LinkedList(val);
     p->prev       = this;
     p->next       = this->next;
-    if (p)
+    if (p->next)
         p->next->prev = p;
     this->next = p;
 }
@@ -25,14 +25,22 @@ void LinkedList::addAtTail(int val)
     LinkedList *p = this;
     while (p->next)
         p = p->next;
-    p->next = new LinkedList(val);
+    p->next       = new LinkedList(val);
+    p->next->prev = p;
 }
 
-void LinkedList::addAtIndex(int index)
+void LinkedList::addAtIndex(int index, int val)
 {
-    LinkedList *p = findPrev(index);
-    if (p)
-        p->next = new LinkedList(val);
+    LinkedList *p, *q;
+    p = findPrev(index);
+    if (!p)
+        return;
+    q       = new LinkedList(val);
+    q->next = p->next;
+    q->prev = p;
+    p->next = q;
+    if (q->next)
+        q->next->prev = q;
 }
 
 void LinkedList::deleteAtIndex(int index)
@@ -41,6 +49,8 @@ void LinkedList::deleteAtIndex(int index)
     if (p && p->next) {
         LinkedList *tmp = p->next;
         p->next         = p->next->next;
+        if (p->next)
+            p->next->prev = p;
         delete tmp;
     }
 }
@@ -52,5 +62,3 @@ LinkedList *LinkedList::findPrev(int index)
         p = p->next;
     return p;
 }
-
-ListView::ListView(LinkedList *list, std::function<int> sort_func(int, int)) {}

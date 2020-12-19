@@ -1,10 +1,10 @@
 CXX=g++
-CXXFLAGS=-Wall -g
+CXXFLAGS=-Wall -g -std=c++17
 SRC = test.cc
 ODIR = build
 DEPS = tree.h util.h
 
-_OBJ = tree.o test.o
+_OBJ = test.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 TARGET=main.out

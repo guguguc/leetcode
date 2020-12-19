@@ -20,8 +20,9 @@ public:
     using value_type = T;
     BinaryTree() : root(nullptr) {}
     BinaryTree(const std::vector<T> &vec);
-    void insert(T val) { root = insert(val, root); };
-    void erase(T val) { root = erase(val, root); };
+    void insert(T val);
+    size_t count(T val) const;
+    void erase(T val);
     void clear();
     TreeNode<T>* getRoot() const { return root; }
     size_t size() const { return getSize(root); }
@@ -31,8 +32,6 @@ public:
     ~BinaryTree() { destroyRecursive(root); };
 
 private:
-    TreeNode<T> *insert(T val, TreeNode<T> *node);
-    TreeNode<T> *erase(T val, TreeNode<T> *node);
     size_t getSize(TreeNode<T> *root) const;
     size_t getHeight(TreeNode<T> *root) const;
 
@@ -46,54 +45,67 @@ private:
 template <typename T> BinaryTree<T>::BinaryTree(const std::vector<T> &vec)
 {
     root = nullptr;
-    for (const auto v : vec)
+    for (const auto &v : vec)
         this->insert(v);
 }
 
-template <typename T>
-TreeNode<T> *BinaryTree<T>::insert(T val, TreeNode<T> *node)
+template<typename T>
+void BinaryTree<T>::insert(T val)
 {
-    if (node == nullptr) {
-        node = new TreeNode<T>(val);
-        return node;
+    TreeNode<T> **p = &root;
+    while (*p) {
+        p = val >= (*p)->val ? &((*p)->left) : &((*p)->right);
     }
-    else {
-        if (val > node->val)
-            node->left = insert(val, node->left);
-        else
-            node->right = insert(val, node->right);
-        return node;
-    }
+    *p = new TreeNode<T>(val);
 }
 
-template <typename T>
-TreeNode<T> *BinaryTree<T>::erase(T val, TreeNode<T> *node)
+template<typename T>
+size_t BinaryTree<T>::count(T val) const
 {
-    if (node == nullptr)
-        return nullptr;
+    auto p = root;
+    size_t cnt = 0;
+    while (p) {
+        if (val > p->val)
+            p = p->left;
+        else if (val < p->val)
+            p = p->right;
+        else
+            p = p->left, ++cnt;
+    }
+    return cnt;
+}
 
-    auto p = node;
-    if (val > node->val) {
-        node->left = erase(val, node->left);
-    }
-    else if (val < node->val) {
-        node->right = erase(val, node->right);
-    }
-    // p only change in this case
-    else {
-        if (node->left) {
-            node->left->right = node->right;
-            p                 = node->left;
-        }
-        else if (node->right) {
-            p = node->right;
-        }
-        else {
-            p = nullptr;
-        }
-        delete node;
-    }
-    return p;
+// template <typename T>
+// TreeNode<T> *BinaryTree<T>::erase(T val)
+// {
+//     if (node == nullptr)
+//         return nullptr;
+// 
+//     auto p = node;
+//     if (val > node->val) {
+//         node->left = erase(val, node->left);
+//     }
+//     else if (val < node->val) {
+//         node->right = erase(val, node->right);
+//     }
+//     else {
+//         if (node->left) {
+//             node->left->right = node->right;
+//             p                 = node->left;
+//         }
+//         else if (node->right) {
+//             p = node->right;
+//         }
+//         else {
+//             p = nullptr;
+//         }
+//         delete node;
+//     }
+//     return p;
+// }
+template<typename T> void BinaryTree<T>::erase(T val)
+{
+    auto p = root;
 }
 
 template <typename T> void BinaryTree<T>::clear()
