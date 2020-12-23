@@ -1,6 +1,6 @@
 #include "tree.h"
-#include <string>
 #include <iosfwd>
+#include <string>
 
 template <typename T>
 std::pair<bool, int> _isAVL(TreeNode<T> *root)
@@ -21,7 +21,10 @@ std::pair<bool, int> _isAVL(TreeNode<T> *root)
 }
 
 template <typename T>
-inline bool isAVL(BinaryTree<T> &tree) { return _isAVL(tree.getRoot()).first; }
+inline bool isAVL(BinaryTree<T> &tree)
+{
+    return _isAVL(tree.getRoot()).first;
+}
 
 template <typename T>
 void travalByPreOrder(const TreeNode<T> *root, std::ostream &out)
@@ -55,23 +58,23 @@ void travalByPostOrder(const TreeNode<T> *root, std::ostream &out)
 
 // TreeNode<char> *createRootByPreInSeq(const std::string &pre,
 //                                      const std::string &in)
-// 
+//
 // {
 //     if (pre.empty())
 //         return nullptr;
-// 
+//
 //     char root_val = pre[0];
 //     auto *p    = new TreeNode<char>(root_val);
-// 
+//
 //     int idx_in = std::find(in.begin(), in.end(), root_val) - in.begin();
 //     std::string pre_left  = pre.substr(1, idx_in);
-//     std::string pre_right = pre.substr(idx_in + 1, pre.length() - idx_in - 1);
-//     std::string in_left   = in.substr(0, idx_in);
-//     std::string in_right  = in.substr(idx_in + 1, in.length() - idx_in - 1);
-// 
+//     std::string pre_right = pre.substr(idx_in + 1, pre.length() - idx_in -
+//     1); std::string in_left   = in.substr(0, idx_in); std::string in_right  =
+//     in.substr(idx_in + 1, in.length() - idx_in - 1);
+//
 //     p->left  = createRootByPreInSeq(pre_left, in_left);
 //     p->right = createRootByPreInSeq(pre_right, in_right);
-// 
+//
 //     return p;
 // }
-// 
+//

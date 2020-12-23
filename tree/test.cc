@@ -41,7 +41,7 @@ void testCount()
     for (auto &n : vec)
         counter[n] += 1;
     for (auto &[k, v] : counter)
-        cout << k << " occurs " << v <<  " times\n";
+        cout << k << " occurs " << v << " times\n";
 
     cout << "counter size is " << counter.size() << "\n";
 }

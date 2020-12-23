@@ -8,4 +8,5 @@ IndentWidth: 4
 AlignConsecutiveAssignments: true
 BreakBeforeBraces: Stroustrup
 AllowShortIfStatementsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: Yes
 IndentCaseLabels: false
