@@ -14,6 +14,7 @@ public:
         int length = nums.size();
         int i, j, k, n;
         for (i = 0; i < length; ++i) {
+            if (i && nums[i] == nums[i-1]) continue;
             for (j = i + 1, k = length - 1; j < k;) {
                 n = nums[j] + nums[k];
                 if (n > -nums[i])
@@ -21,7 +22,7 @@ public:
                 else if (n < -nums[i])
                     ++j;
                 else {
-                    ans.emplace_back(vector<int>{nums[i], nums[j], nums[k]});
+                    ans.push_back({nums[i], nums[j], nums[k]});
                     j++; k--;
                     while (j < k && nums[j] == nums[j - 1]) ++j;
                     while (j < k && k + 1 < length && nums[k] == nums[k + 1]) --k;
