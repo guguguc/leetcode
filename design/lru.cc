@@ -1,87 +1,68 @@
 #include "lru.hpp"
-#include <cassert>
-
-int LRUQueue::pop()
-{
-    int res = list.front();
-    list.pop_front();
-    iter_table.erase(res);
-    return res;
-}
-
-void LRUQueue::push(int item)
-{
-    list.push_back(item);
-    iter_table[item] = --list.end();
-}
-
-void LRUQueue::moveBack(int item)
-{
-    if (list.back() == item)
-        return;
-    list.erase(iter_table.at(item));
-    push(item);
-}
-
-bool LRUQueue::empty() const
-{
-    return list.empty();
-}
-
-bool LRUQueue::exist(int item) const
-{
-    return iter_table.find(item) != iter_table.end();
-}
 
 int LRUCache::get(int key)
 {
+    ++(_access_count);
+
     if (!hit(key))
         return -1;
 
-    return cache.at(key);
+    ++(_hit_count);
+    moveBack(key);
+    return (*cache.at(key)).val;
 }
 
 void LRUCache::put(int key, int value)
 {
+    ++(_access_count);
+
     if (hit(key)) {
-        update(key, value);
+        ++(_hit_count);
+        (*cache.at(key)).val = value;
+        moveBack(key);
         return;
     }
 
-    if (full())
-        cache.erase(queue.pop());
-    insert(key, value);
-    queue.push(key);
+    if (size() == _capacity) {
+        cache.erase(list.front().key);
+        list.pop_front();
+    }
+    list.push_back(KVItem(key, value));
+    cache[key] = --list.end();
 }
 
-void LRUCache::update(int key, int value)
+void LRUCache::moveBack(int key)
 {
-    assert(cache.find(key) != cache.end());
-    cache[key] = value;
+    auto pos = cache.at(key);
+    list.splice(list.end(), list, pos);
 }
 
-void LRUCache::insert(int key, int value)
+bool LRUCache::hit(int key) const
 {
-    assert(cache.find(key) == cache.end());
-    cache[key] = value;
+    return cache.find(key) != cache.end();
 }
 
-bool LRUCache::hit(int key)
+size_t LRUCache::capacity() const
 {
-    if (cache.find(key) == cache.end())
-        return false;
-
-    queue.moveBack(key);
-    return true;
-}
-
-bool LRUCache::full() const
-{
-    return size() == capacity;
+    return _capacity;
 }
 
 size_t LRUCache::size() const
 {
-    return cache.size();
+    return list.size();
 }
 
+size_t LRUCache::access_count() const
+{
+    return _access_count;
+}
+
+size_t LRUCache::hit_count() const
+{
+    return _hit_count;
+}
+
+double LRUCache::hit_rate() const
+{
+    return static_cast<double>(_hit_count) / (_access_count);
+}

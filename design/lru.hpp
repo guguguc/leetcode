@@ -2,17 +2,11 @@
 #include <unordered_map>
 #include <list>
 
-class LRUQueue {
+class KVItem {
 public:
-    int pop();
-    void push(int item);
-    void moveBack(int item);
-    bool empty() const;
-    bool exist(int) const;
-
-private:
-    std::list<int> list;
-    std::unordered_map<int, std::list<int>::iterator> iter_table;
+    KVItem(int key, int val): key(key), val(val) {}
+    int key;
+    int val;
 };
 
 class LRUCache {
@@ -20,20 +14,24 @@ class LRUCache {
     typedef int vtype;
 
 public:
-    LRUCache(int capacity) : capacity(capacity) {}
-    void put(int key, int value);
+    LRUCache(int capacity) : _capacity(capacity), _hit_count(0), _access_count(0) {}
     int get(int key);
-    bool hit(int key);
-    bool full() const;
+    void put(int key, int value);
+    bool hit(int key) const;
+    size_t capacity() const;
     size_t size() const;
+    size_t hit_count() const;
+    size_t access_count() const;
+    double hit_rate() const;
 
 private:
-    void update(int key, int value);
-    void insert(int key, int value);
+    void moveBack(int key);
 
 private:
-    std::unordered_map<ktype, vtype> cache;
-    LRUQueue queue;
-    int capacity;
+    std::unordered_map<ktype, std::list<KVItem>::iterator> cache;
+    std::list<KVItem> list;
+    size_t _capacity;
+    size_t _hit_count;
+    size_t _access_count;
 };
 
