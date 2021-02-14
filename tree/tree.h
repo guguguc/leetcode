@@ -8,12 +8,12 @@ class TreeNode {
     typedef int NODE_TYPE;
 
 public:
-    static TreeNode* buildTree(const std::vector<int> &vec, int start=0)
+    static TreeNode* buildTree(std::initializer_list<int> list, int start=0)
     {
-        if (vec.size() <= start || vec[start] == -1) return nullptr;
-        TreeNode *root = new TreeNode(vec[start]);
-        root->left = buildTree(vec, 2 * start + 1);
-        root->right = buildTree(vec, 2 * start + 2);
+        if (list.size() <= start || *(list.begin() + start) == -1) return nullptr;
+        TreeNode *root = new TreeNode(*(list.begin() + start));
+        root->left = buildTree(list, 2 * start + 1);
+        root->right = buildTree(list, 2 * start + 2);
         return root;
     }
 
