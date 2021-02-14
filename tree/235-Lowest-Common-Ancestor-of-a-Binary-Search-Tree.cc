@@ -22,6 +22,7 @@ public:
             else if (root->val < vmin) root = root->right;
             else return root;
         }
+        return nullptr;
     }
 };
 
