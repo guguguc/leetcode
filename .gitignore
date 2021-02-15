@@ -1,5 +1,6 @@
 *.out
 *.o
+*.exe
 
 .ccls-cache/
 .vim/
