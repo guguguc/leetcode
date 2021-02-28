@@ -20,13 +20,14 @@ public:
     static void travalByPreorder(const TreeNode *root)
     {
         if (!root) return;
-        std::cout << root->val << " ";
+        std::cout << root->val << " \n";
         travalByPreorder(root->left);
         travalByPreorder(root->right);
     }
 
     TreeNode(): val(0), left(nullptr), right(nullptr) {}
     TreeNode(NODE_TYPE val): val(val), left(nullptr), right(nullptr) {}
+
     NODE_TYPE val;
     TreeNode *left;
     TreeNode *right;
